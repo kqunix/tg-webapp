@@ -1,20 +1,26 @@
-function sendMessage(category) {
-    const telegramId = document.getElementById('telegramId').value;
-    const message = document.getElementById('message').value;
+let selectedCategory = '';
 
-    const text = `Категория: ${category}\nID: ${telegramId}\nСообщение: ${message}`;
-
-    fetch(`https://api.telegram.org/bot7667866512:AAGSFQ7_hNFs6IVqdfaAu48T86tHT91mYuA/sendMessage?chat_id=-4748970144&text=${encodeURIComponent(text)}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                alert('Сообщение отправлено!');
-            } else {
-                alert('Ошибка отправки.');
-            }
-        });
+function selectCategory(category) {
+    selectedCategory = category;
+    document.getElementById('status').innerText = `Выбрана категория: ${category}`;
 }
 
-function showRules() {
-    alert('Здесь можно показать текст с правилами');
+function sendMessage() {
+    const message = document.getElementById('message').value;
+    if (!selectedCategory || !message) {
+        alert('Выберите категорию и напишите сообщение!');
+        return;
+    }
+
+    fetch('https://твой-сервер-бота/send', {  // сюда ставим хостинг с Flask или FastAPI
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({category: selectedCategory, message})
+    }).then(response => {
+        if (response.ok) {
+            document.getElementById('status').innerText = '✅ Сообщение отправлено';
+        } else {
+            document.getElementById('status').innerText = '❌ Ошибка отправки';
+        }
+    });
 }
