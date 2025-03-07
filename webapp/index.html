@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Кьюникс Предложка</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+        button {
+            background: #ff5f6d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input, textarea {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Отправить сообщение в предложку</h3>
+        <input type="text" id="message" placeholder="Ваше сообщение">
+        <button onclick="sendMessage()">Отправить</button>
+    </div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // на весь экран
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            if (!message.trim()) {
+                alert("Введите сообщение");
+                return;
+            }
+
+            tg.sendData(JSON.stringify({ action: "sendMessage", text: message }));
+        }
+    </script>
+</body>
+</html>
