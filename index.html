@@ -1,35 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Проверка Telegram ID</title>
     <meta charset="UTF-8">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        window.onload = () => {
-            const tg = window.Telegram.WebApp;
-
-            tg.expand(); // Разворачиваем на весь экран
-
-            const user = tg.initDataUnsafe?.user;
-            if (user) {
-                document.body.innerHTML = `
-                    <h2>Ваш Telegram ID: ${user.id}</h2>
-                    <p>Имя: ${user.first_name} ${user.last_name || ''}</p>
-                    <p>Юзернейм: ${user.username || '(нет)'}</p>
-                    <button onclick="sendDataToBot(${user.id})">Подтвердить</button>
-                `;
-            } else {
-                document.body.innerHTML = `<p>Не удалось получить данные от Telegram.</p>`;
-            }
-        };
-
-        function sendDataToBot(userId) {
-            fetch(`/verify?id=${userId}`);
-            Telegram.WebApp.close();
-        }
-    </script>
+    <title>Предложка Кьюникса</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body style="font-family: Arial; text-align: center; margin-top: 50px;">
-    Загрузка...
+<body>
+    <div class="container">
+        <h1>Предложка Кьюникса</h1>
+        <p>Выберите категорию и напишите сообщение</p>
+        <div class="buttons">
+            <button onclick="selectCategory('Фейк акк/канал')">Фейк акк/канал</button>
+            <button onclick="selectCategory('Коллаб')">Коллаб</button>
+            <button onclick="selectCategory('Прочее')">Прочее</button>
+        </div>
+        <textarea id="message" placeholder="Ваше сообщение"></textarea>
+        <button onclick="sendMessage()">Отправить</button>
+        <p id="status"></p>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
