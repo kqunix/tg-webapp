@@ -1,13 +1,51 @@
-<div class="form-container">
-    <h2>Связь с администрацией</h2>
-    <input type="text" id="telegramId" placeholder="Ваш Telegram ID">
-    <textarea id="message" placeholder="Ваше сообщение"></textarea>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Telegram ID Checker</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        window.onload = () => {
+            const tg = window.Telegram.WebApp;
 
-    <div class="button-group">
-        <button onclick="sendMessage('Фейк акк/канал')">Фейк акк/канал</button>
-        <button onclick="sendMessage('Коллаб')">Коллаб</button>
-        <button onclick="sendMessage('Другое')">Другое</button>
-        <button onclick="sendMessage('Разбан')">Разбан</button>
-        <button onclick="showRules()">Правила</button>
+            tg.expand(); // на весь экран
+
+            const user = tg.initDataUnsafe?.user;
+            if (user) {
+                document.getElementById('result').innerHTML = `
+                    <strong>Ваш Telegram ID:</strong> ${user.id}<br>
+                    <strong>Имя:</strong> ${user.first_name} ${user.last_name || ''}<br>
+                    <strong>Юзернейм:</strong> ${user.username || '(нет)'}<br>
+                    <strong>Язык:</strong> ${user.language_code}
+                `;
+            } else {
+                document.getElementById('result').innerHTML = 'Ошибка: не удалось получить данные.';
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h3>Ваш Telegram ID</h3>
+        <div id="result">Загрузка...</div>
     </div>
-</div>
+</body>
+</html>
