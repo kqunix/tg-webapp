@@ -11,8 +11,12 @@
     <h1>Связь с администрацией</h1>
     <input type="text" id="userId" placeholder="Ваш Telegram ID">
     <textarea id="message" rows="4" placeholder="Ваше сообщение"></textarea>
-    <button onclick="sendMessageToBot('feedback')">Отправить сообщение</button>
-    <button onclick="sendMessageToBot('unban_request')">Запросить разбан</button>
+    <button onclick="sendMessage('Фейк аккаунт/канал')">Фейк акк/канал</button>
+    <button onclick="sendMessage('Коллаборация')">Коллаб</button>
+    <button onclick="sendMessage('Другое')">Другое</button>
+    <button onclick="sendMessage('Запрос на разбан')">Разбан</button>
+    <button onclick="window.open('https://telegra.ph/PRAVILA-V-PREDLOZHKE-03-07', '_blank')">Правила</button>
+
     <div id="status"></div>
 </div>
 
